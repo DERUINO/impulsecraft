@@ -1,11 +1,11 @@
 <template>
   <div class="navigation-wrapper">
       <div class="links">
-        <div class="link">Главная</div>
-        <div class="link">Серверы</div>
-        <div class="link">Форум</div>
-        <div class="link">Донат</div>
-        <div class="link">Разное</div>
+        <div class="link"><router-link to="/">Главная</router-link></div>
+        <div class="link"><router-link to="/servers">Серверы</router-link></div>
+        <div class="link"><router-link to="/forum">Форум</router-link></div>
+        <div class="link"><router-link to="/donate">Донат</router-link></div>
+        <div class="link"><router-link to="/others">Разное</router-link></div>
       </div>
   </div>
 </template>
@@ -21,8 +21,10 @@ export default {
         .links {
             display: flex;
             align-items: center;
+            padding: 10px 0;
 
             .link {
+                font-weight: bolder;
                 flex-grow: 1;
                 display: flex;
                 justify-content: center;
