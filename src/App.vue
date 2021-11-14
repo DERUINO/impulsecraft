@@ -11,23 +11,29 @@
           </div>
         </div>
       </div>
-      <div class="main-screen">
-        <div class="container">
-          <div class="main-screen-text">
-            Почувствуй ритм игры<br>
-            Вместе с нами!
-          </div>
-          <div class="main-screen-start">
-            Начать игру
+      <div class="main-bg">
+      </div>
+      <div class="container" v-if="$router.history.current['path'] === '/'">
+        <div class="main-screen">
+          <div class="container">
+            <div class="main-screen-text">
+              Почувствуй ритм игры<br>
+              вместе с нами!
+            </div>
+            <div class="main-screen-start">
+              Начать игру
+            </div>
           </div>
         </div>
       </div>
       <div class="container">
-        <div class="content">
-          <router-view />
-        </div>
-        <div class="sidebar">
-
+        <div class="row">
+          <div class="col-8">
+            <router-view />
+          </div>
+          <div class="col-4">
+            <Sidebar />
+          </div>
         </div>
       </div>
     </div>
@@ -35,44 +41,43 @@
 </template>
 
 <script>
-import Navigation from '@/components/Navigation.vue'
+import Navigation from '@/components/Navigation.vue';
+import Sidebar from '@/components/Sidebar.vue';
 
 export default {
   components: {
-    Navigation
-  } 
+    Navigation,
+    Sidebar,
+  },
+  data() {
+    return {
+      url: null,
+    }
+  },
+  methods: {
+  }
 }
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/mixins.scss";
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
 
 $bg: #e3e3e3;
 $color: #3e3e3e;
 $defaultFont: 'Rubik', sans-serif;
 
-@mixin button () {
-  padding: 15px;
-  background: linear-gradient(to left, green, limegreen);
-  border-radius: 50px;
-  min-width: 100px;
-  max-width: 160px;
-  font-weight: 600;
-  color: #e3e3e3;
-  text-align: center;
-  box-shadow: 0 0 5px darkgreen;
-  cursor: pointer;
-  transition: 0.3s all;
-
-  &:hover {
-    background: linear-gradient(to left, limegreen, green);
-    box-shadow: 0 0 10px lime;
-  }
-}
-
 * {
   margin: 0;
   padding: 0;
+  &::-webkit-scrollbar {
+    width: 7px;
+    background: darkgrey;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: darkgreen;
+  }
 }
 
 #app {
@@ -123,7 +128,7 @@ $defaultFont: 'Rubik', sans-serif;
     
     .logo {
       width: 40%;
-      font-size: 30px;
+      font-size: 34px;
       font-weight: 800;
     }
 
@@ -132,23 +137,42 @@ $defaultFont: 'Rubik', sans-serif;
     }
   }
 
-  .main-screen {
+  .main-bg {
     height: 75vh;
-    background: url('~@/assets/images/main-screen.jpg') no-repeat center center fixed;
+    background: url('~@/assets/images/main-screen.jpg') no-repeat center center;
     display: flex;
     align-items: center;
-    .main-screen-text {
-      font-size: calc(1rem + 2.4vw);
-      font-weight: 800;
-      color: #E3e3e3;
-      line-height: 1.2;
-      text-shadow: 0 0 2px darkgreen;
-    }
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+  }
 
-    .main-screen-start {
-      @include button();
-      margin-top: 30px;
-    }
+  .main-screen {
+      height: 75vh;
+      display: flex;
+      align-items: center;
+
+      .main-screen-text {
+        font-size: calc(1rem + 2.4vw);
+        font-weight: 800;
+        color: #E3e3e3;
+        line-height: 1.2;
+        text-shadow: 0 0 2px darkgreen;
+      }
+
+      .main-screen-start {
+        @include button();
+        margin-top: 30px;
+      }
+  }
+
+  .container {
+    z-index: 2;
+    position: relative;
+  }
+
+  .content {
+    padding: 2.5% 0;
   }
 }
 </style>
